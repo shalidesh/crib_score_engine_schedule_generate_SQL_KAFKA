@@ -1,0 +1,24 @@
+[ 2024-11-04 11:02:58,092 ] 97 werkzeug - WARNING -  * Debugger is active!
+[ 2024-11-04 11:02:58,106 ] 97 werkzeug - INFO -  * Debugger PIN: 110-469-824
+[ 2024-11-04 11:13:03,883 ] 26 root - INFO - Entered the calculate tenth criteria score calculation
+[ 2024-11-04 11:13:03,904 ] 67 root - INFO - Entered the calculate nineth criteria score calculation
+[ 2024-11-04 11:13:03,936 ] 20 root - INFO - Entered the calculate eighth criteria score calculation
+[ 2024-11-04 11:13:03,965 ] 24 root - INFO - Entered the calculate seventh criteria score calculation
+[ 2024-11-04 11:13:03,982 ] 21 root - INFO - Entered the calculate sixth criteria score calculation
+[ 2024-11-04 11:13:04,015 ] 27 root - INFO - Entered the calculate fifth criteria score calculation
+[ 2024-11-04 11:13:04,038 ] 45 root - INFO - Entered the calculate fouth criteria score calculation
+[ 2024-11-04 11:13:04,164 ] 74 root - INFO - Entered the calculate third criteria score calculation
+[ 2024-11-04 11:13:04,276 ] 77 root - INFO - Entered the calculate second criteria score calculation
+[ 2024-11-04 11:13:04,369 ] 78 root - INFO - Entered the calculate first criteria score calculation
+[ 2024-11-04 11:13:04,431 ] 97 werkzeug - INFO - 127.0.0.1 - - [04/Nov/2024 11:13:04] "POST /crib_calculate HTTP/1.1" 200 -
+[ 2024-11-04 11:13:06,653 ] 26 root - INFO - Entered the calculate tenth criteria score calculation
+[ 2024-11-04 11:13:06,663 ] 67 root - INFO - Entered the calculate nineth criteria score calculation
+[ 2024-11-04 11:13:06,686 ] 20 root - INFO - Entered the calculate eighth criteria score calculation
+[ 2024-11-04 11:13:06,696 ] 24 root - INFO - Entered the calculate seventh criteria score calculation
+[ 2024-11-04 11:13:06,718 ] 21 root - INFO - Entered the calculate sixth criteria score calculation
+[ 2024-11-04 11:13:06,739 ] 27 root - INFO - Entered the calculate fifth criteria score calculation
+[ 2024-11-04 11:13:06,748 ] 45 root - INFO - Entered the calculate fouth criteria score calculation
+[ 2024-11-04 11:13:06,770 ] 74 root - INFO - Entered the calculate third criteria score calculation
+[ 2024-11-04 11:13:06,798 ] 77 root - INFO - Entered the calculate second criteria score calculation
+[ 2024-11-04 11:13:06,849 ] 78 root - INFO - Entered the calculate first criteria score calculation
+[ 2024-11-04 11:13:06,879 ] 97 werkzeug - INFO - 127.0.0.1 - - [04/Nov/2024 11:13:06] "POST /crib_calculate HTTP/1.1" 200 -

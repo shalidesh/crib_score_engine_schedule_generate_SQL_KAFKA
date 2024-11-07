@@ -1,0 +1,118 @@
+---
+version: '3'
+
+services:
+
+  zookeeper2:
+    image: docker.arvancloud.ir/confluentinc/cp-zookeeper:latest
+    hostname: zookeeper2
+    container_name: zookeeper2
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - kafka-network1
+
+  kafka1:
+    image: docker.arvancloud.ir/confluentinc/cp-kafka:latest
+    hostname: kafka1
+    container_name: kafka1
+    depends_on:
+      - zookeeper2
+    ports:
+      - "29092:29092"
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper2:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka1:29092
+      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper2:2181
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+      CONFLUENT_METRICS_ENABLE: 'false'
+    networks:
+      - kafka-network1
+     
+  akhq1:
+    image: tchiotludo/akhq
+    hostname: web-ui1
+    container_name: web-ui1
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            docker-kafka-server:
+              properties:
+                bootstrap.servers: "kafka1:29092"              
+              connect:
+                - name: "connect"
+                  url: "http://connect1:8083"
+
+    ports:
+      - 8080:8080
+    links:
+      - kafka1
+    networks:
+      - kafka-network1
+
+  # consumer:
+  #   build: ./consumer
+  #   hostname: consumer
+  #   container_name: consumer
+  #   depends_on:
+  #     - kafka1
+  #   environment:
+  #     ENGINE_ADDRESS: 'crib_engine:5000'
+  #     BOOSTRAP_SERVERS: 'kafka1:29092'  
+  #   networks:
+  #     - kafka-network1
+
+  # producer:
+  #   build: ./producer
+  #   hostname: producer
+  #   container_name: producer
+  #   depends_on:
+  #     - kafka1
+  #   environment:
+  #     BOOSTRAP_SERVERS: 'kafka1:29092'
+  #     SQL_SERVER: host.docker.internal
+  #     SQL_DATABASE: cdbdw_prod
+  #     SQL_USER: shalidesh
+  #     SQL_PASSWORD: 123456
+  #     SQL_DRIVER: ODBC Driver 17 for SQL Server
+  #     LD_LIBRARY_PATH: /opt/microsoft/msodbcsql17/lib64
+  #   volumes:
+  #     - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/:/opt/microsoft/msodbcsql17/"
+  #   networks:
+  #     - kafka-network1
+
+  # crib_engine:
+  #   build: ./crib_engine
+  #   hostname: crib_engine
+  #   container_name: crib_engine
+  #   depends_on:
+  #     - kafka1
+  #   ports:
+  #     - 5000:5000
+  #   environment:
+  #     SQL_SERVER: host.docker.internal
+  #     SQL_DATABASE: cdbdw_prod
+  #     SQL_USER: shalidesh
+  #     SQL_PASSWORD: 123456
+  #     SQL_DRIVER: ODBC Driver 17 for SQL Server
+  #   networks:
+  #     - kafka-network1
+
+
+networks:
+  kafka-network1:
+    driver: bridge
+    name: kafka-network1
